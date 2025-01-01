@@ -16,13 +16,23 @@ llm = ChatGroq(
 )
 
 
-quiz_prompt=PromptTemplate(
-    input_variables=['topic','type','num'],
-    template="Give me {num} {type} questions  on {topic}.give only the questions and answers no other info"
-    )
-
+quiz_prompt = PromptTemplate(
+    input_variables=['topic','subTopic','num'],
+    template="""Give me {num} multiple choice questions on {topic} {subTopic}. 
+    Provide only the questions, options, correct answer, and a difficulty rating in JSON format. 
+    Example:
+    {{
+        "question": "What is the sum of interior angles in a triangle?",
+        "options": ["180", "270", "360", "450"],
+        "answer": 1,
+        "difficulty": 0.3
+        "topic":{topic}
+        "subTopic":{subTopic}
+    }}
+    """
+)
 chain=LLMChain(llm=llm,prompt=quiz_prompt)
 
-def generate_quiz(topic, q_type,num):
-    result = chain.run({'topic': topic, 'type': q_type,'num':num})
+def generate_quiz(topic,sub_topic,num):
+    result = chain.run({'topic': topic,'subTopic':sub_topic,'num':num})
     return result
