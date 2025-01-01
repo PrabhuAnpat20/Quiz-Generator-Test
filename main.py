@@ -2,7 +2,7 @@ import streamlit as st
 from quize_generator import generate_quiz
 
 # Set the title of the app
-st.title("Math Quiz Generator")
+st.title("Quiz Generator")
 
 # Main topics and their respective sub-topics
 topics = {

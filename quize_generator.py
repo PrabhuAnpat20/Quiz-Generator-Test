@@ -1,14 +1,21 @@
 from langchain_groq import ChatGroq
 import os
 from dotenv import load_dotenv
-from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
+import json
+from langchain.chains import LLMChain
+
 # Load .env variables
 load_dotenv()
 
 # Access the API key
 groq_api_key = os.getenv("GROQ_API_KEY")
 
+# Ensure the API key is set properly
+if not groq_api_key:
+    raise ValueError("GROQ_API_KEY is missing in .env file")
+
+# Initialize the LLM with Groq
 llm = ChatGroq(
     model="llama-3.1-70b-versatile",
     temperature=0,
