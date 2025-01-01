@@ -25,5 +25,4 @@ chain=LLMChain(llm=llm,prompt=quiz_prompt)
 
 def generate_quiz(topic, q_type,num):
     result = chain.run({'topic': topic, 'type': q_type,'num':num})
-    print(result)
     return result
